@@ -7,8 +7,8 @@
 // Otherwise it tries to return a reference to an existing module.
 var app = angular.module('RoutesDemo', ['ui.state']);
 
-app.config(function ($routeProvider, $stateProvider) {
-  /*
+/*
+app.config(function ($routeProvider) {
   $routeProvider
     .when('/baseball', {
       templateUrl: 'partials/baseball.html',
@@ -25,7 +25,8 @@ app.config(function ($routeProvider, $stateProvider) {
     .otherwise({
       redirectTo: '/baseball'
     });
-  */
+*/
+app.config(function ($stateProvider) {
   $stateProvider
     .state('baseball', {
       url: '/baseball',
@@ -51,7 +52,7 @@ app.config(function ($routeProvider, $stateProvider) {
     });
 });
 
-app.controller('NavCtrl', function ($scope, $location) {
+app.controller('NavCtrl', function ($scope, $location, $state) {
   var ul = $('ul.nav');
 
   function selectNavButton(sport) {
@@ -68,5 +69,6 @@ app.controller('NavCtrl', function ($scope, $location) {
 
   var sport = $location.path().substring(1); // removes leading slash
   if (!sport) sport = 'baseball';
+  $state.transitionTo(sport); // sets the initial state
   selectNavButton(sport);
 });
