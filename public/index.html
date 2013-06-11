@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="demo.css">
   </head>
   <body>
-    <div class="hero-unit"><h1>AngularJS Routes Demo</h1></div>
+    <div class="hero-unit">
+      <h1>AngularJS Routes Demo</h1>
+      <span ui-view="logo"/>
+    </div>
 
     <div class="navbar" ng-controller="NavCtrl">
       <div class="navbar-inner">
@@ -26,17 +29,16 @@
     </div>
 
     <section id="center">
-      <ng-view></ng-view>
+      <!--ng-view/-->
+      <div ui-view="center"/>
     </section>
 
-    <footer>
-      <span id="dateTime">{{page.dateTime}}</span>
-      <span id="appName">VITEK 2 technology</span>
-    </footer>
+    <ng-include src="'partials/footer.html'"/>
 
     <script src="lib/jquery-2.0.1.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.js"></script>
     <script src="lib/angular.min.js"></script>
+    <script src="components/ui-router/release/angular-ui-router.min.js"></script>
     <script src="demo.js"></script>
     <script src="baseball.js"></script>
     <script src="hockey.js"></script>

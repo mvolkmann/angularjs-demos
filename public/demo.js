@@ -5,40 +5,68 @@
 // The empty array must be passed even when the module
 // doesn't depend on any other modules.
 // Otherwise it tries to return a reference to an existing module.
-var app = angular.module('RoutesDemo', []);
+var app = angular.module('RoutesDemo', ['ui.state']);
 
-app.config(function ($routeProvider) {
+app.config(function ($routeProvider, $stateProvider) {
+  /*
   $routeProvider
     .when('/baseball', {
       templateUrl: 'partials/baseball.html',
-      controller: 'BaseballCtrl'
+      view: 'center'
+      // don't need to specify if ng-controller is used in baseball.html
+      //controller: 'BaseballCtrl'
     })
     .when('/hockey', {
       templateUrl: 'partials/hockey.html',
-      controller: 'HockeyCtrl'
+      view: 'center'
+      // don't need to specify if ng-controller is used in hockey.html
+      //controller: 'HockeyCtrl'
     })
     .otherwise({
       redirectTo: '/baseball'
     });
+  */
+  $stateProvider
+    .state('baseball', {
+      url: '/baseball',
+      views: {
+        'center': {
+          templateUrl: 'partials/baseball.html'
+        },
+        'logo': {
+          templateUrl: 'partials/mlb.html'
+        }
+      }
+    })
+    .state('hockey', {
+      url: '/hockey',
+      views: {
+        'center': {
+          templateUrl: 'partials/hockey.html'
+        },
+        'logo': {
+          templateUrl: 'partials/nhl.html'
+        }
+      }
+    });
 });
 
 app.controller('NavCtrl', function ($scope, $location) {
-  //$locationProvider.html5mode(true);
-
   var ul = $('ul.nav');
+
+  function selectNavButton(sport) {
+    ul.children('li.active').removeClass('active');
+    ul.find('li > a#' + sport).parent().addClass('active');
+  }
 
   $scope.setRoute = function (event) {
     event.preventDefault(); // IMPORTANT!
-
-    var name = event.target.id;
-
-    // Change the selected nav button.
-    ul.children('li.active').removeClass('active');
-    ul.find('li > a#' + name).parent().addClass('active');
-
-    $location.path('/' + name);
+    var sport = event.target.id;
+    selectNavButton(sport);
+    $location.path('/' + sport);
   };
 
-  // Force starting with baseball on refresh.
-  $location.path('/baseball');
+  var sport = $location.path().substring(1); // removes leading slash
+  if (!sport) sport = 'baseball';
+  selectNavButton(sport);
 });

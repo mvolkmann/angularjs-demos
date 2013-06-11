@@ -1,3 +1,7 @@
+body {
+  overflow-y: hidden;
+}
+
 footer {
   background-color: DarkBlue; /* #00008b */
   border-radius: 10px;
@@ -21,9 +25,31 @@ th {
   background-color: #ddddf0; /* overlay of LightGray and DarkBlue from colorblendy.com */
 }
 
+#baseballTable tbody {
+  display: block;
+  height: 400px;
+  overflow-y: scroll;
+}
+
 #center {
   height: 400px;
   margin-left: 20px;
+}
+
+#hockeyTree {
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.hero-unit {
+  padding: 30px;
+}
+
+.logo {
+  height: 110px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
 
 .tree-leaf {
