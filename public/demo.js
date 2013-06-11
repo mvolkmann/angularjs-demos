@@ -5,7 +5,7 @@
 // The empty array must be passed even when the module
 // doesn't depend on any other modules.
 // Otherwise it tries to return a reference to an existing module.
-var app = angular.module('RoutesDemo', ['ui.state']);
+var app = angular.module('RoutesDemo', ['ui.state', 'my-directives']);
 
 /*
 app.config(function ($routeProvider) {
